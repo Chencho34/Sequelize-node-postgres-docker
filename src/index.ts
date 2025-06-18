@@ -19,8 +19,13 @@ app.get('/api', (_, res) => {
 
 app.use('/api', userRoutes)
 
-sequelize.sync().then(() => {
-  app.listen(3000, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`)
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(3000, () => {
+      console.log(`Server is running on port http://localhost:${PORT}`)
+    })
   })
-})
+  .catch((err) => {
+    console.error('❌ Error al sincronizar la base de datos:', err)
+  })
